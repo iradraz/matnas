@@ -48,29 +48,45 @@ class Mdl_controller extends CI_Model {
         $this->db->insert($table, $data);
     }
 
-    function _update($id, $data){
+    function _update($id, $data) {
         $table = $this->get_table();
-        $this->db->where('id',$id);
-        $this->db->update($table,$data);
+        $this->db->where('id', $id);
+        $this->db->update($table, $data);
     }
 
-    function _delete($id){
+    function _delete($id) {
         $table = $this->get_table();
-        $this->db->where('id',$id);
+        $this->db->where('id', $id);
         $this->db->delete($table);
     }
 
-    function count_where($column, $value){
+    function count_where($column, $value) {
         $table = $this->get_table();
-        $this->db->where($column,$value);
-        $query=$this->db->get($table);
+        $this->db->where($column, $value);
+        $query = $this->db->get($table);
         $num_rows = $query->num_rows();
         return $num_rows;
     }
 
-    function count_all();
+    function count_all() {
+        $table = $this->get_table();
+        $query = $this->db->get($table);
+        $num_rows = $query->num_rows();
+        return $num_rows;
+    }
 
-    function get_max();
+    function get_max() {
+        $table = $this->get_table();
+        $this->db->select_max('id');
+        $query = $this->db->get($table);
+        $row = $query->row();
+        $id = $row->id;
+        return $id;
+    }
 
-    function _custom_query($mysql_query);
+    function _custom_query($mysql_query) {
+        $query = $this->db->query($mysql_query);
+        return $query;
+    }
+
 }

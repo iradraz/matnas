@@ -24,18 +24,44 @@ class Controller extends MX_Controller {
         return $query;
     }
 
-    function get_where_custom($col, $value);
+    function get_where_custom($col, $value) {
+        $this->load->model('mdl_controller');
+        $query = $this->mdl_controller->get_where_custom($col, $value);
+        return $query;
+    }
 
-    function _insert($data);
+    function _insert($data) {
+        $this->load->model('mdl_controller');
+        $this->mdl_controller->_insert($data);
+    }
 
-    function _update($id, $data);
+    function _update($id, $data) {
+        $this->load->model('mdl_controller');
+        $this->mdl_controller->_update($id, $data);
+    }
 
-    function _delete($id);
+    function _delete($id) {
+        $this->load->model('mdl_controller');
+        $this->mdl_controller->_delete($id);
+    }
 
-    function count_where($column, $value);
+    function count_where($column, $value) {
+        $this->load->model('mdl_controller');
+        $count = $this->mdl_controller->count_where($column, $value);
+        return $count;
+    }
 
-    function get_max();
+    function get_max() {
+        $this->load->model('mdl_controller');
+        $max_id = $this->mdl_controller->get_max();
+        return $max_id;
+        
+    }
 
-    function _custom_query($mysql_query);
-    
+    function _custom_query($mysql_query) {
+        $this->load->model('mdl_controller');
+        $query = $this->mdl_controller->_custom_query($mysql_query);
+        return $query;
+    }
+
 }
