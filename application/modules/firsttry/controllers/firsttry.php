@@ -6,6 +6,6 @@
 			parent::__construct();
 		}
                 function hello(){
-                    echo "working";
+                    echo "working abc2";
                 }
 	}
