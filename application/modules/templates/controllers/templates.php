@@ -11,8 +11,13 @@ class Templates extends MX_Controller {
         $this->public_bootstrap($data);
     }
 
+    function show_admin() {
+        $data = "";
+        $this->admin($data);
+    }
+
     function public_bootstrap($data) {
-        $this->load->view('public_bootstrap',$data);
+        $this->load->view('public_bootstrap', $data);
     }
 
     function public_jqm($data) {
