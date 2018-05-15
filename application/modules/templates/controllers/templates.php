@@ -6,22 +6,18 @@ class Templates extends MX_Controller {
         parent::__construct();
     }
 
-    function test() {
+    function landing() {
         $data = "";
-        $this->public_bootstrap($data);
+        $this->login_page($data);
+    }
+
+    function login_page($data) {
+        $this->load->view('login_page', $data);
     }
 
     function show_admin() {
         $data = "";
         $this->admin($data);
-    }
-
-    function public_bootstrap($data) {
-        $this->load->view('public_bootstrap', $data);
-    }
-
-    function public_jqm($data) {
-        $this->load->view('public_jqm', $data);
     }
 
     function admin($data) {

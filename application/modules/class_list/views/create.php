@@ -1,0 +1,1 @@
+<h1>Add New Class</h1>
