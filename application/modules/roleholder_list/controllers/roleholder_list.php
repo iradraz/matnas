@@ -7,23 +7,83 @@ class Roleholder_list extends MX_Controller {
     }
 
     function main() {
+
         $this->load->module('site_security');
         $this->site_security->_make_sure_is_admin();
 
+        $data['query'] = $this->get('roleholder_id');
         $data['view_module'] = "roleholder_list";
         $data['view_file'] = "main";
         $this->load->module('templates');
         $this->templates->admin($data);
     }
 
+    function adduser() {
+        $this->load->module('site_security');
+        $this->site_security->_make_sure_is_admin();
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('first_name', 'First Name', 'required');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'required');
+        $this->form_validation->set_rules('roles', 'invalid role', 'in_list[site_manager,chief_head,coordinator,instructor]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['view_module'] = "roleholder_list";
+            $data['view_file'] = "add";
+            $this->load->module('templates');
+            $this->templates->admin($data);
+        } else {
+
+            // database manipulation add goes here
+            $data = array(
+                'roleholder_firstname' => $this->input->post('first_name'),
+                'roleholder_lastname' => $this->input->post('last_name'),
+                'roleholder_role' => $this->input->post('role')
+            );
+            // adding $data to database 
+            $this->load->module('roleholder_list');
+            $this->roleholder_list->_insert($data);
+
+            $data['view_module'] = "roleholder_list";
+            $data['view_file'] = "add";
+            $this->load->module('templates');
+            $this->templates->admin($data);
+        }
+    }
+
     function add() {
         $this->load->module('site_security');
         $this->site_security->_make_sure_is_admin();
+
+        $data['first_name'] = $this->input->post('first_name');
+
+        $data['last_name'] = $this->input->post('last_name');
+        $data['role'] = $this->input->post('role');
 
         $data['view_module'] = "roleholder_list";
         $data['view_file'] = "add";
         $this->load->module('templates');
         $this->templates->admin($data);
+    }
+    function manageuser(){
+        echo "hello";
+        die();
+    }
+
+    function deleteuser() {
+        $delete_id = $this->uri->segment(3);
+        if (is_numeric($delete_id)) {
+            $this->_deleteuser($delete_id);
+        } else {
+            echo "fail... redirecting....";
+            die();
+        }
+        redirect('/roleholder_list/main');
+    }
+
+    function _deleteuser($delete_id) {
+        //security_test goes here
+        $this->_delete($delete_id);
     }
 
     function get($order_by) {

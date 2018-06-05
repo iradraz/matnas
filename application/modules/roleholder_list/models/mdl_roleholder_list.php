@@ -31,7 +31,7 @@ class Mdl_Roleholder_list extends CI_Model {
 
     function get_where($id) {
         $table = $this->get_table();
-        $this->db->where('Roleholder_list_id', $id);
+        $this->db->where('roleholder_id', $id);
         $query = $this->db->get($table);
         return $query;
     }
@@ -50,13 +50,13 @@ class Mdl_Roleholder_list extends CI_Model {
 
     function _update($id, $data) {
         $table = $this->get_table();
-        $this->db->where('roleholder_list_id', $id);
+        $this->db->where('roleholder_id', $id);
         $this->db->update($table, $data);
     }
 
     function _delete($id) {
         $table = $this->get_table();
-        $this->db->where('roleholder_list_id', $id);
+        $this->db->where('roleholder_id', $id);
         $this->db->delete($table);
     }
 
@@ -77,7 +77,7 @@ class Mdl_Roleholder_list extends CI_Model {
 
     function get_max() {
         $table = $this->get_table();
-        $this->db->select_max('roleholder_list_id');
+        $this->db->select_max('roleholder_id');
         $query = $this->db->get($table);
         $row = $query->row();
         $id = $row->id;
